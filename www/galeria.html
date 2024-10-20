@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Galería</title>
+    <link rel="stylesheet" href="css/iroom.css">
+</head>
+<body id="galeriaBody">
+    <div id="titulo">
+        <h1>Galería de imágenes</h1><hr>
+    </div>
+    <div id="menu">
+        <ul>
+            <li><a href="index.html">Página Principal</a></li>
+            <li><a href="config.html">Configuración</a></li>
+        </ul>
+    </div>
+    <!-- Contenedor principal -->
+    <div class="contenedor-principal">
+        <!-- Contenedor con desplazamiento horizontal -->
+        <div id="cuadro-informacion" class="cuadro-informacion">
+            <img id="imagen-ampliada" alt="Imagen Ampliada">
+            <p id="nombre-imagen"></p>
+        </div>
+        <br>
+        <div class="galeria-container">
+            <div id="galeria-body" class="galeria-body">
+                <!-- Imagenes cargadas aquí -->
+            </div>
+            <!-- Botones de flecha para recorrer la galería -->
+            <div class="flecha" id="izquierda">&#10096;</div>
+            <div class="flecha" id="derecha">&#10097;</div>
+        </div>
+    </div>
+    <div class="pie">
+        <p>Universidad de Alcalá</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> <!-- Incluye jQuery -->
+    <script src="scripts/galeria.js"></script> <!-- Tu script jQuery personalizado -->
+</body>
+</html>
+
+
+
+
+
+
+

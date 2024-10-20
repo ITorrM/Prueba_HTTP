@@ -1,0 +1,114 @@
+<!DOCTYPE html>  <!--Necesario para hacer interpretar correctamente al explorador-->
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>iRoom</title>
+    <link rel="stylesheet" href="css/iroom.css"> <!--Hoja de CSS-->
+</head>
+
+<body id="cuerpo">
+    <div>
+        <div id="titulo">
+            <h1>Smart Room Proyect</h1><hr>
+        </div>
+        <div id="menu">
+            <ul>
+                <li><a href="minombre.html">Datos Personales</a></li>
+                <li><a href="config.html">Configuración</a></li>
+                <li><a href="tablas.html">Tablas de datos</a></li>
+                <div id="informacion">
+                    <div id="mensaje">
+                    <script>
+                    // Recuperar el nombre almacenado en localStorage
+                    var fname = localStorage.getItem("fname");
+                    
+                     // Mostrar un mensaje de bienvenida en el campo reservado
+                    if (fname) {
+                        document.getElementById("mensaje").textContent = "Hola " + fname + ": Bienvenido a smartroom.";
+                            }
+                     </script>
+                     </div>
+                </div>
+            </ul>
+        </div>
+        <div id="habitacion" class="contenedor-opciones">
+            <h2>Datos de la habitación</h2>
+             <ul>
+                <li>Nombre: Sala de ordenadores</li>
+                <li>Tipo: Habitación Grande</li>
+                <li>Sensores: Luz, temperatura</li>
+                <li>Localización: <a href="">Sala de ordenadores</a></li>
+            </ul>
+            <a href="" target="_blank"></a>
+                <img src="images/room.jpg" alt="Habitación" id="imagenHabitacion">
+            </div>
+            <div id="sensores" class="contenedor-opciones">
+                <h2>Datos de los sensores</h2>
+                <table class="tabla-datos">
+                    <thead>
+                        <tr>
+                            <th>Tipo del sensor</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Temperatura</td>
+                        <td><div id="temperatura">
+                            <script>
+                                var temperaturaEstado = localStorage.getItem('temperaturaEstado');
+                                document.getElementById("temperatura").textContent = temperaturaEstado;
+                            </script>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td>Humedad</td>
+                        <td><div id="humedad">
+                            <script>
+                                var humedadEstado = localStorage.getItem('humedadEstado');
+                                document.getElementById("humedad").textContent = humedadEstado;
+                            </script>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td>Nivel de luz</td>
+                        <td><div id="nivelLuz">
+                            <script>
+                                var nivelLuzEstado = localStorage.getItem('luzEstado');
+                                document.getElementById("nivelLuz").textContent = nivelLuzEstado;
+                            </script>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td>Nivel de sonido</td>
+                        <td><div id="nivelSonido">
+                            <script>
+                                var nivelSonidoEstado = localStorage.getItem('sonidoEstado');
+                                document.getElementById("nivelSonido").textContent = nivelSonidoEstado;
+                            </script>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td>Movimiento</td>
+                        <td><div id="movimiento">
+                            <script>
+                                var movimientoEstado = localStorage.getItem('movimientoEstado');
+                                document.getElementById("movimiento").textContent = movimientoEstado;
+                            </script>
+                        </div></td>
+                    </tr><br>
+                    </tbody>
+                </table> 
+            </div>
+        </div><br>
+        <div class="pie">
+            <p>Universidad de Alcalá</p>
+        </div>
+    </div>
+    <script src="scripts/datos.js"></script>
+    <script src="scripts/config.js"></script>
+</body>
+
+</html>
