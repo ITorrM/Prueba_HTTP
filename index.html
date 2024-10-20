@@ -1,114 +1,920 @@
-<!DOCTYPE html>  <!--Necesario para hacer interpretar correctamente al explorador-->
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>iRoom</title>
-    <link rel="stylesheet" href="css/iroom.css"> <!--Hoja de CSS-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz cumple Elsa</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" />
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+     <!-- CSS de Swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Cambia la dirección para que los elementos estén en columna */
+            font-family: Arial, sans-serif;
+            height: 100%;
+            background: url('imagenes/fondo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            overflow-x: hidden;
+            background-color: rgba(34, 34, 34, 0.7); /* Fondo gris oscuro translúcido */
+        }
+
+        /* Fondo translúcido para las secciones */
+        section {
+            display: flex;
+            flex-direction: column; /* Alinea contenido interno en columna */
+            width: 100vw; /* Ocupa todo el ancho de la ventana */
+            background-color: rgba(34, 34, 34, 0.7); /* Fondo gris oscuro translúcido */
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: relative; /* Evita superposiciones */
+            box-sizing: border-box;
+        }
+
+        section.active {
+            opacity: 1;
+        }
+
+        /* Estilos para la barra de navegación */
+        #navMenu {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            padding: 1em;
+            background-color: rgba(34, 34, 34, 0.7);
+            width: 100%; /* Asegura que ocupe todo el ancho */
+        }
+
+        .tab-link {
+            position: relative;
+            padding: 0.75em 1.5em;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+            font-weight: bold;
+            border: none;
+        }
+
+        .tab-link:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Ajuste del contenedor principal */
+        .cuadro-bienvenida-0 {
+            min-height: 100vh; /* Asegura altura completa */
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /*Letras derretidas*/
+        .derretido {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 900;
+            color: white;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15%;
+        }
+
+        /* Estilos para cada letra (derretimiento individual) */
+        .derretido span {
+            position: relative;
+            display: inline-block;
+            overflow: hidden; /* Limitar el contenido de gotas dentro de cada letra */
+        }
+
+        .derretido span::before {
+            content: attr(data-letter); /* Cada letra es un pseudo-elemento */
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: white;
+            filter: blur(0); /* Inicialmente sin blur */
+            animation: fadeLetter 3s ease-in-out forwards;
+            animation-delay: calc(var(--i) * 0.5s); /* Retraso para cada letra */
+        }
+        .derretido span::before {
+            content: attr(data-letter); /* Cada letra es un pseudo-elemento */
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: white;
+            filter: blur(0); /* Inicialmente sin blur */
+            animation: fadeLetter infinite;
+            animation-delay: calc(var(--i) * 0.5s); /* Retraso para cada letra */
+        }
+
+        /* Keyframes para la desaparición de las letras */
+        @keyframes fadeLetter {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(20px); /* Simula que la letra se derrite hacia abajo */
+            }
+        }
+
+        /* Ajuste del cuadro con texto e imagen */
+        .cuadro-bienvenida-1 {
+            width: 100vw; /* Ocupa todo el ancho de la pantalla */
+            height: 60vh;
+            background-color: rgba(34, 73, 51, 0.9);
+            padding: 2rem;
+            display: flex; /* Cambia a flex para alinear elementos horizontalmente */
+            flex-direction: row; /* Alinea los elementos en fila */
+            align-items: center; /* Centra verticalmente los elementos */
+            justify-content: center; /* Opcional: centrar horizontalmente */
+            gap: 2rem; /* Añade espacio entre los elementos */
+        }
+
+        /* Estilos del texto */
+        .texto {
+            text-align: left; /* Cambia a izquierda para texto más natural */
+            color: white;
+            max-width: 800px; /* Limita el ancho máximo del texto */
+            padding: 0 1rem;
+            margin: auto;
+            margin-top: 7vh;
+        }
+
+        .texto h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .texto p {
+            font-size: 2.125rem;
+            line-height: 2.75rem;
+        }
+
+        /* Estilos de la imagen */
+        .marco-foto {
+            display: flex; /* Flex para centrar la imagen dentro de su contenedor */
+            justify-content: center; /* Centra la imagen horizontalmente */
+            width: 32rem;
+            height: auto;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        .marco-foto img {
+            width: 36rem; /* Ajusta el tamaño de la imagen */
+            height: auto;
+            object-fit: cover;
+        }
+
+        /*Cuadro Hufflepuff*/
+        .cuadro-gris {
+            background-color: rgba(34, 34, 34, 0.7);
+            width: 100vw; /* Ancho completo de la pantalla */
+            height: 100vh; /* Altura completa de la pantalla */
+            display: flex; /* Diseño flex para columnas */
+            justify-content: center; /* Alineación horizontal centrada */
+            align-items: center; /* Alineación vertical centrada */
+            gap: 2rem; /* Espacio entre columnas */
+            padding: 2rem; /* Espaciado interior */
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .columna-texto, .columna-lista {
+            background-image:url(imagenes/madera.jpg);
+            color: #ffffff; /* Texto negro */
+            padding: 2rem; /* Espaciado interior */
+            width: 45%; /* Cada columna ocupa casi la mitad del ancho */
+            height: 80%;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+        }
+
+        .curva-texto {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center; /* Alinea el texto del título */
+        }
+        .curva-texto-2 {
+            font-size: 30px;
+            margin-bottom: 1rem;
+            text-align:left; /* Alinea el texto del título */
+        }
+        .columna-lista h2 {
+            font-size: 45px;
+            font-weight: bolder;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .columna-lista ul {
+            list-style-type: disc; /* Puntos por defecto */
+            padding-left: 20px; /* Alineación correcta del texto */
+            font-size: 2rem;
+        }
+
+        /*Cuadro del molinillo*/
+        .cuadro-bienvenida-3 {
+            display: flex;
+            align-items: center;
+            background-color: black;
+            width: 100vw;
+            height: 80vh; /* Ajusta la altura según sea necesario */
+            overflow: hidden;
+        }
+
+        .corte-circular {
+            width: 50vw;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            clip-path: ellipse(75% 100% at 25% 75%);
+        }
+
+        .corte-circular img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: -30vw;
+        }
+
+        .bloque-texto {
+            color: white;
+            padding: 20px;
+            text-align:left;
+            width: calc(100% - 40vw); /* Resta el ancho del corte circular */
+        }
+
+        .bloque-texto h1 {
+            margin-top: -25vh;
+            margin-bottom: 15px;
+            font-size: 3em;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bolder;
+        }
+
+        .bloque-texto p {
+            margin-top: auto;
+            font-size: 2.4rem;
+            line-height: 2.75rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+
+        /* Contenedor translúcido */
+        .contenedor-translucido {
+            background-color: rgba(34, 34, 34, 0.7); /* Fondo oscuro translúcido */
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem; /* Espacio entre cuadros */
+            padding: 2rem;
+            overflow: hidden; /* Evita scroll interno del contenedor */
+        }
+
+        /* El div para el periodico */
+        .cuadro-bienvenida5 {
+            display: flex;
+            width: 100vw;   /* Ancho completo */
+            height: 100vh;  /* Alto completo */
+            background-image: url(imagenes/muro.jpg);
+            overflow: hidden;  /* Evitar que se desborde contenido */
+        }
+
+        /* Estilo para el contenedor del texto (izquierda) */
+        .texto-superior {
+            flex: 1;  /* Ocupa todo el espacio restante que no usa la imagen */
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            text-align: left;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .texto-superior h1 {
+            font-size: 4rem;  /* Tamaño grande para el título */
+            margin: 0 0 20px 0; 
+            line-height: 2.75rem;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+        }
+
+        .texto-superior p {
+            font-size: 2rem;  /* Texto adicional grande */
+            margin: 0;
+            font-size: 2.4rem;
+            line-height: 2.75rem;
+            font-family: 'Roboto', sans-serif;
+            color:white;
+        }
+
+        /* Contenedor de la imagen (derecha) */
+        .contenedor-imagen {
+            width: 50vw;;  /* La imagen ocupa el 40% del ancho total */
+            height: 100%;  /* Ocupa toda la altura del div */
+            align-self: auto;
+        }
+
+        .contenedor-imagen img {
+            width: 100%;  /* La imagen ocupa todo el ancho del contenedor */
+            height: 100%;  /* La imagen ocupa toda la altura del contenedor */
+            object-fit:contain;  /* Asegura que la imagen cubra el espacio sin deformarse */
+            
+        }
+
+        /* Cuadro judo */
+        .cuadro-bienvenida4 {
+            display: flex;
+            justify-content: flex-end;  /* Alinea el contenido a la derecha */
+            align-items: center;  /* Centra verticalmente el contenido */
+            width: 100vw;  /* Ancho completo de la pantalla */
+            height: 100vh;  /* Alto completo de la pantalla */
+            background-image: url(imagenes/judo.jpg);
+        }
+
+        /* Contenedor del texto */
+        .contenido-texto {
+            text-align: left;  /* Alineación del texto a la derecha */
+            padding: 40px;  /* Espaciado interno para separar del borde */
+            width: 50vw;
+            height: auto;
+        }
+
+        /* Estilo del título */
+        .contenido-texto h1 {
+            color: white;
+            font-size: 4rem;  /* Tamaño grande para el título */
+            margin: 0 0 20px 0;  /* Margen inferior para separar del párrafo */
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Estilo del párrafo */
+        .contenido-texto p {
+            color: white;
+            font-size: 2.4rem;
+            line-height: 2.75rem;
+            justify-content: baseline;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Corte de pagina */ 
+        /* Estilo del cuadro negro */
+        .cuadro-negro {
+            width: 100vw;  /* Ancho completo de la pantalla */
+            height: 120vh;  /* Alto completo de la pantalla */
+            background-color: rgba(34, 34, 34, 0.7);
+            display: flex;  /* Flexbox para centrar contenido */
+            justify-content: center;  /* Centrado horizontal */
+            align-items: center;  /* Centrado vertical */
+            text-align: center;
+        }
+
+        /* Estilo del texto */
+        .cuadro-negro h1 {
+            color: white;  /* Texto blanco */
+            font-size: 4rem;  /* Tamaño grande del texto */
+            font-family: 'Arial', sans-serif;
+            margin: 0;  /* Elimina el margen por defecto del h1 */
+        }
+
+        /* Ajuste del cuadro con texto e imagen */
+        .cuadro-bienvenida-2 {
+            width: 100vw; /* Ocupa todo el ancho de la pantalla */
+            height: 95vh;
+            background-color: rgba(34, 73, 51, 0.9);
+            display: flex; /* Cambia a flex para alinear elementos horizontalmente */
+            flex-direction: row; /* Alinea los elementos en fila */
+            align-items: center; /* Centra verticalmente los elementos */
+            justify-content: center; /* Opcional: centrar horizontalmente */
+            gap: 2rem; /* Añade espacio entre los elementos */
+        }
+
+        /* Estilos del texto */
+        .texto-2 {
+            text-align: left; /* Cambia a izquierda para texto más natural */
+            color: white;
+            max-width: 800px; /* Limita el ancho máximo del texto */
+            padding: 0 1rem;
+            margin: auto;
+            margin-top: 7vh;
+        }
+
+        .texto-2 h2 {
+            font-size: 3.7rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .texto-2 p {
+            font-size: 3rem;
+            line-height: 3.75rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Estilos de la imagen */
+        .marco-foto-2 {
+            display: flex; /* Flex para centrar la imagen dentro de su contenedor */
+            justify-content: center; 
+            width: 32rem;
+            height: auto;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        .marco-foto-2 img {
+            width: 36rem; /* Ajusta el tamaño de la imagen */
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Estilo de los cuadros */
+        .cuadro {
+            background-color: #0f3b10; /* Verde */
+            border: 1px solid white; /* Bordes blancos */
+            border-radius: 10px;
+            width: 30vw;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra */
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0; /* Inicialmente oculto */
+        }
+
+        /* Estilo del texto dentro de los cuadros */
+        .cuadro p {
+            color: white;
+            font-size: 2.4rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* Animación al hacer scroll (controlada por AOS) */
+        [data-aos="fade-up"] {
+            transform: translateY(30px); /* Inicia desde abajo */
+            opacity: 0;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+
+        [data-aos="fade-up"].aos-animate {
+            transform: translateY(0); /* Posición final */
+            opacity: 1; /* Visible */
+        }
+
+        /*   Pagina de felicitaciones  */
+        .carrusel-contenedor {
+            margin: auto;
+            width: 80vw;  /* 80% del ancho de la pantalla */
+            height: 80vh; /* 80% del alto de la pantalla */
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .swiper-slide img {
+            max-width: 70%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgb(243, 243, 243);
+        }
+
+        .nombre {
+            margin-top: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .mensaje {
+            margin-top: 5px;
+            font-size: 18px;
+            color: #000000;
+        }
+
+        /* Flechas de Swiper */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #000000;
+            transition: color 0.3s;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            color: #000;
+        }
+
+        /* Paginación */
+        .swiper-pagination-bullet {
+            background: #000000;
+            opacity: 0.7;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #08e700;
+        }
+
+        #felicitaciones-container {
+            display: flex; /* Usa flexbox para alinear elementos */
+            flex-direction: column; /* Organiza las felicitaciones en columnas */
+            align-items: center; /* Centra horizontalmente los hijos */
+            justify-content: center; /* Centra verticalmente los hijos */
+            width: 100%;
+            margin-top: 20px; /* Espacio entre el título y las felicitaciones */
+        }
+
+        .felicitacion {
+            display: flex; /* Flexbox para el contenido dentro de cada felicitación */
+            align-items:center; /* Centra verticalmente el texto y la imagen */
+            margin: 10px 0; /* Espaciado entre cada felicitación */
+            width: 90%;
+            background-color: #0f0a0a; /* Fondo gris claro para cada felicitación */
+            padding: 15px; /* Espaciado interno */
+            border-radius: 16px; /* Bordes redondeados */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+            color:rgba(0, 0, 0, 0.23);
+            color: whitesmoke;
+            text-align: left;
+            font-family: var(--body-font-family);
+            box-sizing: border-box;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .felicitacion-texto {
+            margin-right: 20px; /* Más separación entre el texto y la imagen */
+            
+            line-height: 1.6; /* Espaciado entre líneas */
+            font-size: 16px; /* Ajusta el tamaño de la fuente según necesidad */
+            max-width: 50%;
+            white-space: pre-wrap; /* Para respetar saltos de línea y espacios múltiples */
+            /* Asegura que los párrafos tengan un margen adecuado */
+            /* Propiedades para ajuste automático */
+            word-wrap: break-word; /* Ajusta el texto que se pasa del ancho */
+            overflow-wrap: break-word; /* Ajusta el texto largo en palabras si es necesario */
+        }
+
+        .felicitacion-imagen img {
+            width: 100%;
+            height: 100%;
+            padding: 7px;
+            margin-right: 15px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .felicitacion {
+                flex-direction: column; /* Para pantallas más pequeñas, el texto e imagen estarán uno encima del otro */
+            }
+
+            .felicitacion-texto {
+                margin-right: 0;
+                margin-bottom: 15px; /* Separación entre el texto y la imagen cuando estén apilados */
+            }
+
+            .felicitacion-imagen img {
+                width: 100%; /* La imagen ocupará el 100% del ancho en pantallas pequeñas */
+            }
+        }
+    </style>
 </head>
+<body>
 
-<body id="cuerpo">
-    <div>
-        <div id="titulo">
-            <h1>Smart Room Proyect</h1><hr>
-        </div>
-        <div id="menu">
-            <ul>
-                <li><a href="minombre.html">Datos Personales</a></li>
-                <li><a href="config.html">Configuración</a></li>
-                <li><a href="tablas.html">Tablas de datos</a></li>
-                <div id="informacion">
-                    <div id="mensaje">
-                    <script>
-                    // Recuperar el nombre almacenado en localStorage
-                    var fname = localStorage.getItem("fname");
-                    
-                     // Mostrar un mensaje de bienvenida en el campo reservado
-                    if (fname) {
-                        document.getElementById("mensaje").textContent = "Hola " + fname + ": Bienvenido a smartroom.";
-                            }
-                     </script>
-                     </div>
-                </div>
-            </ul>
-        </div>
-        <div id="habitacion" class="contenedor-opciones">
-            <h2>Datos de la habitación</h2>
-             <ul>
-                <li>Nombre: Sala de ordenadores</li>
-                <li>Tipo: Habitación Grande</li>
-                <li>Sensores: Luz, temperatura</li>
-                <li>Localización: <a href="">Sala de ordenadores</a></li>
-            </ul>
-            <a href="" target="_blank"></a>
-                <img src="images/room.jpg" alt="Habitación" id="imagenHabitacion">
+    <nav id="navMenu">
+        <a href="#bienvenida" class="tab-link">Bienvenida</a>
+        <a href="#video" class="tab-link">Video</a>
+        <a href="#felicitaciones" class="tab-link">Felicitaciones</a>
+    </nav>
+    
+
+    <!-- Sección de bienvenida -->
+    <section id="bienvenida" class="active">
+        <div class="cuadro-bienvenida-0">
+            <h1 class="derretido">
+                <span data-letter="¡" style="--i: 0">¡</span>
+                <span data-letter="F" style="--i: 1">F</span>
+                <span data-letter="e" style="--i: 2">e</span>
+                <span data-letter="l" style="--i: 3">l</span>
+                <span data-letter="i" style="--i: 4">i</span>
+                <span data-letter="z" style="--i: 5">z</span>
+                <span data-letter=" " style="--i: 6"> </span>
+                <span data-letter="c" style="--i: 7">c</span>
+                <span data-letter="u" style="--i: 8">u</span>
+                <span data-letter="m" style="--i: 9">m</span>
+                <span data-letter="p" style="--i: 10">p</span>
+                <span data-letter="l" style="--i: 11">l</span>
+                <span data-letter="e" style="--i: 12">e</span>
+                <span data-letter=" " style="--i: 13"> </span>
+                <span data-letter="E" style="--i: 14">E</span>
+                <span data-letter="l" style="--i: 15">l</span>
+                <span data-letter="s" style="--i: 16">s</span>
+                <span data-letter="a" style="--i: 17">a</span>
+                <span data-letter="!" style="--i: 18">!</span>
+            </h1></div>
+        <div class="cuadro-bienvenida-1">
+            <div class="texto">
+                <h2>¡Feliz cumple!</h2>
+                <p>Hoy, día 26 de Octubre, cumple años Elsapatito, un patito muy especial para nosotros. Y para celebrarlo, vamos a describir que provoca este patito en nuestras vidas, a que cosas nos recuerda, y a sus más grandes atributos.</p>
             </div>
-            <div id="sensores" class="contenedor-opciones">
-                <h2>Datos de los sensores</h2>
-                <table class="tabla-datos">
-                    <thead>
-                        <tr>
-                            <th>Tipo del sensor</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Temperatura</td>
-                        <td><div id="temperatura">
-                            <script>
-                                var temperaturaEstado = localStorage.getItem('temperaturaEstado');
-                                document.getElementById("temperatura").textContent = temperaturaEstado;
-                            </script>
-                        </div></td>
-                    </tr>
-                    <tr>
-                        <td>Humedad</td>
-                        <td><div id="humedad">
-                            <script>
-                                var humedadEstado = localStorage.getItem('humedadEstado');
-                                document.getElementById("humedad").textContent = humedadEstado;
-                            </script>
-                        </div></td>
-                    </tr>
-                    <tr>
-                        <td>Nivel de luz</td>
-                        <td><div id="nivelLuz">
-                            <script>
-                                var nivelLuzEstado = localStorage.getItem('luzEstado');
-                                document.getElementById("nivelLuz").textContent = nivelLuzEstado;
-                            </script>
-                        </div></td>
-                    </tr>
-                    <tr>
-                        <td>Nivel de sonido</td>
-                        <td><div id="nivelSonido">
-                            <script>
-                                var nivelSonidoEstado = localStorage.getItem('sonidoEstado');
-                                document.getElementById("nivelSonido").textContent = nivelSonidoEstado;
-                            </script>
-                        </div></td>
-                    </tr>
-                    <tr>
-                        <td>Movimiento</td>
-                        <td><div id="movimiento">
-                            <script>
-                                var movimientoEstado = localStorage.getItem('movimientoEstado');
-                                document.getElementById("movimiento").textContent = movimientoEstado;
-                            </script>
-                        </div></td>
-                    </tr><br>
-                    </tbody>
-                </table> 
+            <div class="marco-foto">
+                <img src="imagenes/patito.jpg" alt="Foto de felicitación">
             </div>
-        </div><br>
-        <div class="pie">
-            <p>Universidad de Alcalá</p>
         </div>
-    </div>
-    <script src="scripts/datos.js"></script>
-    <script src="scripts/config.js"></script>
+        <div class="cuadro-gris">
+            <div class="columna-texto">
+                <p class="curva-texto">¡La peligrosa Elsa!</p>
+                <p class="curva-texto-2">
+                    Cazadora nivel 4, trajeada con un manto de pelaje de cabra, cuerdas y hachas, locatis con un toque de cordura para viajar por sus mundos de fantasía con su manada de caballos salvajes y su perrita .
+                    Su arma letal una flecha muuuuy larga porque para Elsa todo se le queda pequeño (giño guiño codo codo) con la que atraviesa corazones de chocolate y tremendas " zorras " divinas de la muerte.
+                    Vivienda de ganchos afilados para atrapar a sus presas.
+
+                </p>
+            </div>
+        
+            <div class="columna-lista">
+                <h2>Crímenes por los que se la busca</h2>
+                <ul>
+                    <li>Terrorismo culinario en las comidas</li>
+                    <li>Ataques psicóticos contra gente de bien (pobre Fran)</li>
+                    <li>Tráfico de sustancias peligrosas marrones adictivas</li>
+                    <li>Contaminación biológica debido a su toxicidad</li>
+                    <li>Destruir todo sistema de medida con sus propias manos</li>
+                </ul>
+            </div>
+        </div>
+                          
+        <div class="cuadro-bienvenida-1">
+            <div class="texto">
+                <h2>Pero por el interior...</h2>
+                <p>Ensimismada con su mundo no tan cuerdo y bonito como bien sabe ella. Pensamientos macabros q saca a la luz en momento de esquizofrenia pura y dura. Hace tiempo que está loca y no hay que tenerdelo en cuenta es una especie de bicho raro que se conserva en soledad y aún que apunte con el arma no llega a disparar y por eso ESTA ENFERMAA.</p>
+            </div>
+            <div class="marco-foto">
+                <img src="imagenes/acolchada.jpg" alt="Foto de felicitación">
+            </div>
+        </div>
+        <div class="cuadro-bienvenida-3">
+            <div class="corte-circular">
+                <img src="imagenes/molinillo.jpg" alt="Imagen Corte Circular" />
+            </div>
+            <div class="bloque-texto">
+                <h1>Nunca la verás venir...</h1>
+                <p>Sus transformaciones para atacar al oponente son tan versátiles que puede pasar de ser una orca, un alcon pelegrino, como una nevera ( no sé entiende como prefiere una nevera antes que un microondas). Pero la más peligrosa, el MOLINILLO DE CAFÉ.</p>
+            </div>
+        </div>
+        <div class="cuadro-bienvenida5">
+            <div class="texto-superior">
+                <h1>¡Últimas Noticias!</h1>
+                <p>Así es la portada del periódico de Guadalajara del dia 26 de Octubre.</p>
+            </div>
+            <div class="contenedor-imagen">
+                <img src="imagenes/periodico.png" alt="Imagen Vertical" />
+            </div>
+        </div>
+        <div class="cuadro-bienvenida4">
+            <div class="contenido-texto">
+                <h1>Una maestra, una JUDOTEKA</h1>
+                <p>No solo Melendi ha experimentado sus devastadores golpes, la trayectoria de Elsapatito como una auténtica cazadora la ha llevado por el arte del Judo. Se la considera extremadamente peligrosa por sus habilidades sin igual en este arte.</p>
+            </div>
+        </div>
+        <div class="cuadro-negro">
+            <h1>Así es como se muestra al mundo Elsapatito, pero bueno, para nosotros es otra historia... Volvamos a empezar.</h1>
+        </div>
+        <div class="cuadro-bienvenida-2">
+            <div class="texto-2">
+                <h2>¿Quién es Elsa?</h2>
+                <p>Para nosotros, Elsa es una personita muy especial, que siempre está ahí para apoyarte en los malos momentos, para hacer inmemorables los buenos, siempre con su corazón y su gracia.</p>
+            </div>
+            <div class="marco-foto-2">
+                <img src="imagenes/elsa1.jpg" alt="Foto de felicitación">
+            </div>
+        </div>
+        <div class="cuadro-bienvenida-2" style="background-color: rgba(34, 34, 34, 0.7);">
+            <div class="marco-foto-2" style="height: min-content;">
+                <img src="imagenes/elsa3.jpg" alt="Foto de felicitación">
+            </div>
+            <div class="texto-2">
+                <h2>En el interior...</h2>
+                <p>Está siempre en su mundo de fantasia, y es gracias a que comparte lo que sale de su creativa cabecita que consigue sorprendernos todos los días, una autentica máquina de maravillas es, y consigue plasmarlo en nuestras vidas cotidianas.</p>
+            </div>
+        </div>
+        <div class="cuadro-bienvenida-2">
+            <div class="texto-2">
+                <h2>Con locuras ingeniosas</h2>
+                <p>Siempre experimentando...¿Qué cojones? No, en serio, cómo cojones se te ocurre poner mandarinas a unas migas. AAAAAAAAA MIS OJOS, una mierda termino de escribir este cuadro.</p>
+            </div>
+            <div class="marco-foto-2">
+                <img src="imagenes/elsa2.jpg" alt="Foto de felicitación">
+            </div>
+        </div>
+        
+        <div class="contenedor-translucido">
+            <div class="cuadro" data-aos="fade-up" data-aos-delay="200">
+                <p>Gracias por todo lo que nos has aportado, por estar ahí siempre para todos nosotros. Siempre has estado ahí para darnos un abrazo cuando más lo hemos necesitado, tienes todo nuestro amor y cariño siempre que lo necesites.</p>
+            </div>
+            <div class="cuadro" data-aos="fade-up" data-aos-delay="400">
+                <p>Gracias por las risas que nos has dado con tus locuras, sobretodo con las más inesperadas, queremos hacer siguiendote reir y creando más recuerdos maravillosos juntos</p>
+            </div>
+            <div class="cuadro" data-aos="fade-up" data-aos-delay="600">
+                <p>Gracias por la paz que transmites, por ser una gran mediadora en todas las situaciones críticas que hemos tenido, por entendernos y dar siempre tu lado bueno incluso cuando no lo mereciamos, te estaremos en deuda siempre por esos momentos.</p>
+            </div>
+        </div>
+        <div class="cuadro-bienvenida-2">
+            <div class="marco-foto-2" style="height: min-content; line-height: 3rem;">
+                <img src="imagenes/amigos.jpg" alt="Foto de felicitación">
+            </div>
+            <div class="texto-2">
+                <h2>Aquí se acaba</h2>
+                <p>Gracias por ser una excelente amiga para nosotros, te mereces todo lo bueno que te pueda pasar en esta vida. Esta página web ha sido programada por Iván (estoy dando saltos de alegria de que pueda parar de programar ya), junto con Andrea y Michi como musas creativas de este regalo. Te quedan un par de cositas por ver en las pestañas de Regalo y Felicitaciones.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Sección de video -->
+    <section id="video">
+        <h1>Video de cumpleaños</h1>
+        <p>¡Tu video de regalo!</p>
+        <video width="600" controls>
+            <source src="ruta/al/video.mp4" type="video/mp4">
+            Tu navegador no soporta videos.
+        </video>
+    </section>
+
+    <!-- Sección de felicitaciones -->
+    <section id="felicitaciones" class="cuadro-bienvenida-0">
+        <div class="carrusel-contenedor">
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper" id="galeria"></div>
+        
+              <!-- Flechas de navegación -->
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+        
+              <!-- Paginación opcional -->
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        //Inicializacion de AOS
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();  // Inicializa AOS después de que se cargue la página
+        });
+        // Función para mostrar la pestaña activa y ocultar las otras con animación
+        function showTab(event, tabName) {
+            event.preventDefault();
+            const tabs = document.querySelectorAll('section');
+            const links = document.querySelectorAll('#navMenu a');
+    
+            // Remover la clase active y ocultar todas las secciones con animación
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                tab.style.opacity = 0;  // Inicia la animación de desaparición
+            });
+    
+            // Remover la clase active de todos los enlaces y agregarla al enlace clicado
+            links.forEach(link => link.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+    
+            // Mostrar la nueva pestaña de inmediato y ocultar las otras
+            const selectedTab = document.getElementById(tabName);
+            selectedTab.style.display = 'block';  // Aseguramos que esté visible inmediatamente
+            selectedTab.style.opacity = 0;  // Comienza con opacidad 0
+    
+            // Pequeño retraso antes de hacer que aparezca visualmente (opacidad)
+            setTimeout(() => {
+                // Ocultar las otras secciones
+                tabs.forEach(tab => {
+                    if (tab.id !== tabName) {
+                        tab.style.display = 'none';  // Oculta las otras secciones
+                    }
+                });
+                // Transición de opacidad suave para la pestaña seleccionada
+                selectedTab.style.opacity = 1;
+            }, 50);  // Pequeño retraso para suavizar la transición
+        }
+    
+        // Agregar eventos a los enlaces de la navegación
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                const tabName = link.getAttribute('href').substring(1);  // Obtener el id de la sección
+                showTab(event, tabName);
+            });
+        });
+
+        //Función para letras derretidas
+        document.addEventListener("DOMContentLoaded", () => {
+            const texto = document.querySelector(".derretido");
+
+            // Esperamos un poco y luego activamos la animación
+            setTimeout(() => {
+                texto.classList.add("show");
+            }, 1000);
+
+            // Animación de GSAP para el "derretimiento" adicional
+            gsap.fromTo(
+                texto,
+                { filter: "blur(10px)", opacity: 0 },
+                { filter: "blur(0px)", opacity: 1, duration: 2, delay: 0.5 }
+            );
+        });
+
+        // Función para cargar las felicitaciones desde un archivo JSON
+        // Seleccionamos el contenedor donde se añadirán las fotos y textos.
+        const galeria = document.getElementById('galeria');
+
+        // Función para cargar el archivo JSON y mostrar las imágenes, nombres y textos.
+        async function cargarDatos() {
+        try {
+            const response = await fetch('felicitaciones.json');
+            const datos = await response.json();
+
+            datos.forEach(item => {
+            const slide = document.createElement('div');
+            slide.classList.add('swiper-slide');
+
+            slide.innerHTML = `
+                <img src="${item.imagen}" alt="Imagen de felicitación" />
+                <div class="nombre">${item.nombre}</div>
+                <div class="mensaje">${item.mensaje}</div>
+            `;
+
+            galeria.appendChild(slide);
+            });
+
+            // Inicializamos Swiper después de cargar los datos.
+            new Swiper('.mySwiper', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            loop: true,
+            });
+        } catch (error) {
+            console.error('Error al cargar los datos:', error);
+        }
+        }
+
+        // Llamamos a la función para cargar los datos.
+        cargarDatos();
+
+        
+    // Cargar las felicitaciones al cargar la página
+    window.onload = cargarFelicitaciones;
+    </script>
+     <!-- JS de Swiper -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+     
 </body>
-
 </html>

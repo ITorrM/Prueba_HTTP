@@ -1,9 +1,0 @@
-[
-  { "pagina": 3, "ciudad": "Zaragoza", "temperatura": "19ºC", "humedad": "72%", "ruido": "Moderado", "nivelLuz": "75%", "colorIluminacion": "Verde" },
-  { "pagina": 3, "ciudad": "Málaga", "temperatura": "23ºC", "humedad": "65%", "ruido": "Bajo", "nivelLuz": "92%", "colorIluminacion": "Azul" },
-  { "pagina": 3, "ciudad": "Murcia", "temperatura": "26ºC", "humedad": "58%", "ruido": "Alto", "nivelLuz": "88%", "colorIluminacion": "Amarillo" },
-  { "pagina": 3, "ciudad": "Bilbao", "temperatura": "16ºC", "humedad": "80%", "ruido": "Bajo", "nivelLuz": "78%", "colorIluminacion": "Rojo" },
-  { "pagina": 3, "ciudad": "Alicante", "temperatura": "21ºC", "humedad": "67%", "ruido": "Moderado", "nivelLuz": "82%", "colorIluminacion": "Verde" }
-]
-
-  
